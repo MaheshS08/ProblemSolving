@@ -1,12 +1,12 @@
+#include <bits/stdc++.h>
 
-//LEETCODE..
-
-
-
-class Solution {
-public:
-    void recurPermute(vector<int>& ds,vector<int>& nums,vector<vector<int>>& ans,int freq[]){
+using namespace std;
+void recurPermute(vector<int>& ds,vector<int>& nums,vector<vector<int>>& ans,int freq[]){
         if(ds.size()==nums.size()){
+            for(int i=0;i<ds.size();i++){
+                cout<<ds[i]<<" ";
+            }
+            cout<<endl;
             ans.push_back(ds);
             return;
         }
@@ -19,14 +19,18 @@ public:
                 freq[i]=0;
             }
         }
-    }
-    vector<vector<int>> permute(vector<int>& nums) {
+}
+void permute(vector<int>& nums) {
         vector<int> ds;
         vector<vector<int>> ans;
         int freq[nums.size()];
         for(int i=0;i<nums.size();i++) freq[i]=0;
         recurPermute(ds,nums,ans,freq);
-        return ans;
-    }
-    
-};
+        //return ans;
+}
+int main()
+{
+    vector<int> nums={1,2,3};
+    permute(nums);
+    return 0;
+}
