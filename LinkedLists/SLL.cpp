@@ -3,37 +3,49 @@
 using namespace std;
 struct Node
 {
-    int data;
+    int val;
     Node *next;
-    Node(int data)
+    Node(int val)
     {
-        this->data = data;
+        this->val = val;
         this->next=NULL;
     }
 } *head = NULL, *tail = NULL;
 
 
 //Deletion
-void delAtBeg(int pos){
-    Node *toBeDel;
-    Node *temp;
-    if(pos==1){
-        temp=head;
-        head=head->next;
-        delete temp;
-    }
-    else{
-        temp=head;
-        for(int i=0;i<pos;i++){
-            toBeDel=temp;
-            temp=temp->next;
-            if(temp==NULL){
-                return;
+void delAtBeg(int val){
+    Node *p=NULL,*c=head;
+    // Node *toBeDel;
+    // Node *temp;
+    // if(pos==1){
+    //     temp=head;
+    //     head=head->next;
+    //     delete temp;
+    // }
+    // else{
+    //     temp=head;
+    //     for(int i=0;i<pos;i++){
+    //         toBeDel=temp;
+    //         temp=temp->next;
+    //         if(temp==NULL){
+    //             return;
+    //         }
+    //     }
+    //     toBeDel->next=temp->next;
+    //     //temp->next=head->next;
+    //     delete toBeDel;
+    // }
+    while(c){
+        if(c->val == val){
+            if(!p){
+                Node *del=head;
+                delete head;
             }
+            p->next=c->next;
         }
-        toBeDel->next=temp->next;
-        //temp->next=head->next;
-        delete toBeDel;
+        p=c;
+        c=c->next;
     }
 }
 
@@ -50,16 +62,16 @@ void insertAtBeg()
     }
     else
     {
-        newNode->next = head;
+        newNode->next=head;
         head = newNode;
     }
 }
 
 void insertAtEnd()
 {
-    int data = 0;
-    cin >> data;
-    Node *newNode = new Node(data);
+    int val = 0;
+    cin >> val;
+    Node *newNode = new Node(val);
     if (head == NULL)
     {
         head = newNode;
@@ -74,29 +86,19 @@ void insertAtEnd()
 
 void printList(Node *head)
 {
-    Node *temp = head;
-    
-    if (head == NULL)
-    {
-        cout << "NULL";
-    }
-    while (temp != NULL)
-    {
-        cout << temp->data <<"->";
-        temp = temp->next;
-    }
+    if(head==NULL) return;
+    cout<<head->val<<" ";
+    printList(head->next);
     cout<<endl;
 }
 
 void printReverseList(Node *head)
 {
-    Node *temp = head;
-    if (temp->next == NULL)
-    {
-        cout << "NULL";
-    }
-    printReverseList(temp->next);
-    cout << temp->data << "->";
+    if(head==NULL) return;
+    cout<<endl;
+    printReverseList(head->next);
+    cout << head->val << " ";
+    
 }
 
 int main()
@@ -106,7 +108,7 @@ int main()
     for(int i=0;i<n;i++){
         insertAtBeg();
     }
-    printList(head);
+    printReverseList(head);
     delAtBeg(2);
-    printList(head);
+    printReverseList(head);
 }
