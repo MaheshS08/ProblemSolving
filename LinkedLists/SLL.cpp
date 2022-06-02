@@ -10,7 +10,8 @@ struct Node
         this->val = val;
         this->next=NULL;
     }
-} *head = NULL, *tail = NULL;
+};
+Node*head = NULL, *tail = NULL;
 
 
 //Deletion
@@ -49,6 +50,41 @@ void delAtBeg(int val){
     }
 }
 
+void getMiddleElement(Node *head){
+    Node *first=head;
+    Node *second=head;
+    while(first && first->next && first->next->next ){
+        first = first->next->next;
+        second = second->next;
+    }
+    if(first->next==NULL) return second;
+    else return second->next;
+}
+
+//Kth Node 
+
+void kthNode(Node *head,int k){
+    Node *first=head;
+    Node *second=head;
+    for(int i=0;i<k;i++){
+        if(first==NULL) return -1;
+        first = first->next;
+    }
+    while(first!=NULL){
+        first = first->next;
+        second = second->next;
+    }
+    return second->val;
+}
+
+//CLONE LINKEDLIST
+Node* cloneLL(Node* head){
+    if(head==NULL) return NULL;
+    Node *newNode = new Node(head->val);
+    newNode->next = cloneLL(head->next);
+    return newNode;
+}
+
 
 void insertAtBeg()
 {
@@ -84,7 +120,7 @@ void insertAtEnd()
     }
 }
 
-void printList(Node *head)
+void printList(Node* head)
 {
     if(head==NULL) return;
     cout<<head->val<<" ";
@@ -92,7 +128,7 @@ void printList(Node *head)
     cout<<endl;
 }
 
-void printReverseList(Node *head)
+void printReverseList(Node* head)
 {
     if(head==NULL) return;
     cout<<endl;
@@ -109,6 +145,8 @@ int main()
         insertAtBeg();
     }
     printReverseList(head);
-    delAtBeg(2);
-    printReverseList(head);
+    //delAtBeg(2);
+    //Node *cloned = cloneLL(head);
+    printReverseList(cloned);
 }
+
