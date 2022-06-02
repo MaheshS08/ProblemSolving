@@ -50,20 +50,23 @@ void delAtBeg(int val){
     }
 }
 
-void getMiddleElement(Node *head){
+
+//Get Middle Element of List
+
+int getMiddleElement(Node *head){
     Node *first=head;
     Node *second=head;
     while(first && first->next && first->next->next ){
         first = first->next->next;
         second = second->next;
     }
-    if(first->next==NULL) return second;
-    else return second->next;
+    if(first->next==NULL) return second->val;
+    else return second->next->val;
 }
 
 //Kth Node 
 
-void kthNode(Node *head,int k){
+int kthNode(Node *head,int k){
     Node *first=head;
     Node *second=head;
     for(int i=0;i<k;i++){
@@ -75,6 +78,33 @@ void kthNode(Node *head,int k){
         second = second->next;
     }
     return second->val;
+}
+
+//Detect Cycle in List
+
+bool hasCycle(Node *head) {
+        Node *first=head;
+        Node *second=head;
+        while(first && first->next){
+            second = second->next;
+            first = first->next->next;
+            if(second == first)
+                return true;
+        }
+        return false;
+}
+
+//Reverse a LINKEDLIST
+
+Node* reverseList(Node* head) {
+        Node *prev=NULL,*cur=head,*n;
+        while(cur!=NULL){
+            n=cur->next;
+            cur->next=prev;
+            prev=cur;
+            cur=n;
+        }
+        return prev;
 }
 
 //CLONE LINKEDLIST
@@ -144,9 +174,12 @@ int main()
     for(int i=0;i<n;i++){
         insertAtBeg();
     }
-    printReverseList(head);
+    printList(head);
     //delAtBeg(2);
     //Node *cloned = cloneLL(head);
-    printReverseList(cloned);
+    Node *reverse = reverseList(head);
+    printList(reverse);
+    //cout<<endl<<hasCycle(head);
+    //printReverseList(cloned);
 }
 
